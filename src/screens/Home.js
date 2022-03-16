@@ -94,15 +94,10 @@ function Home({ navigation, route }) {
         keyExtractor={(item, index) => item + index}
         renderItem={({ item, section }) => {
           return <FlatList
-            // numColumns={2}
-            // columnWrapperStyle={{
-            //   flex: 1,
-            //   justifyContent: "space-evenly"
-            // }}
             data={section.data}
             renderItem={({ item }) => <Item item={item} />}
             showsHorizontalScrollIndicator={false}
-          />;
+          />
         }}
         renderSectionHeader={({ section }) => (
           <Text style={styles.header}>{section.title}</Text>

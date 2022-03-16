@@ -8,6 +8,7 @@ import { navigationRef } from './RootNavigation';
 import * as RootNavigation from './RootNavigation';
 import Colors from './theme/colors';
 import Home from './screens/Home';
+import Cart from './screens/Cart';
 import CategoriesModal from './screens/CategoriesModal';
 import ShoppingCartIcon from './containers/ShoppingCartIcon';
 
@@ -40,7 +41,13 @@ export default function AppNavigation() {
 
           <Stack.Screen
             name="Cart"
-            component={Home}
+            component={Cart}
+            options={{
+              headerBackTitle: '',
+              headerRight: () => (
+                <Icon name="qr-code-scanner" size={24} color="white" onPress={() => alert('Open Bar/QR Scanner')} />
+              ),
+            }}
           />
         </Stack.Group>
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
