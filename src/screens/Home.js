@@ -1,8 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { StyleSheet, FlatList, View, Text, Linking, SectionList, SafeAreaView, StatusBar, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, FlatList, View, Text, SectionList, SafeAreaView, StatusBar, Button, TouchableHighlight } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
-import TimeAgo from 'react-native-timeago';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { getProducts, addToCart } from '../store/reducers/productSlice';
