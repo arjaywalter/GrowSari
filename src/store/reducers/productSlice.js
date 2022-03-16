@@ -16,12 +16,26 @@ export const getProducts = createAsyncThunk(
   },
 );
 
+export const addToCart = createAsyncThunk(
+  'products/addToCart',
+  async ({ productId }, thunkAPI) => {
+    try {
+      // TODO Replace with real fetch API call
+      return productId;
+    } catch (error) {
+      const message = getErrorMessage(error);
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
+
 const initialState = {
   isFetching: false,
   isSuccess: false,
   isError: false,
   errorMessage: '',
   data: [],
+  cart: [],
 };
 
 export const productSlice = createSlice({
@@ -48,6 +62,12 @@ export const productSlice = createSlice({
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = action.payload;
+    },
+
+    [addToCart.fulfilled]: (state, action) => {
+      const id = action.meta.arg.id;
+      const product = state.data.find(i => i.id === id);
+      state.cart.push(product);
     },
   },
 });

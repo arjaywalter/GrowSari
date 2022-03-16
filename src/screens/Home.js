@@ -5,23 +5,10 @@ import _ from 'lodash';
 import TimeAgo from 'react-native-timeago';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { getProducts } from '../store/reducers/productSlice';
+import { getProducts, addToCart } from '../store/reducers/productSlice';
 import Colors from '../theme/colors';
 
 function Home({ navigation, route }) {
-  useEffect(() => {
-    if (route.params?.selectedCategory) {
-      // Category updated, do something with `route.params.selectedCategory`
-      const selectedCategory = route.params.selectedCategory;
-      setCategory(selectedCategory);
-      const categoryProducts = allProducts.filter(product => product.category === selectedCategory);
-      setProducts(categoryProducts)
-    } else {
-      setCategory('Categories');
-      setProducts(allProducts);
-    }
-  }, [route.params?.selectedCategory]);
-
   const dispatch = useDispatch();
   const {
     isFetching,
@@ -45,6 +32,19 @@ function Home({ navigation, route }) {
     setProducts(data);
   }, [data]);
 
+  useEffect(() => {
+    if (route.params?.selectedCategory) {
+      // Category updated, do something with `route.params.selectedCategory`
+      const selectedCategory = route.params.selectedCategory;
+      setCategory(selectedCategory);
+      const categoryProducts = allProducts.filter(product => product.category === selectedCategory);
+      setProducts(categoryProducts)
+    } else {
+      setCategory('Categories');
+      setProducts(allProducts);
+    }
+  }, [route.params?.selectedCategory]);
+
   const DATA = [
     {
       title: "Products",
@@ -60,7 +60,9 @@ function Home({ navigation, route }) {
     return (<View style={styles.item}>
       <Text style={styles.title}>{display_name}</Text>
       <Text>PHP {price}</Text>
-      <Button title="Add to cart"/>
+      <Button title="Add to cart" onPress={() => {
+        dispatch(addToCart({id: item.id}));
+      }}/>
     </View>
     )
   };
