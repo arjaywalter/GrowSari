@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     Platform,
+    TouchableOpacity,
 } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons'
 import _ from 'lodash';
@@ -14,15 +15,17 @@ const ShoppingCartIcon = ({ navigation }) => {
     const { cart } = useSelector(state => state.product);
     console.log('cart', cart);
     return (
-        <View style={[{ padding: 5 }, Platform.OS == 'android' ? styles.iconContainer : null]}>
-            {!_.isEmpty(cart) && <View style={{
-                position: 'absolute', height: 30, width: 30, borderRadius: 15, backgroundColor: '#F06B36', right: 15, bottom: 15, alignItems: 'center', justifyContent: 'center', zIndex: 2000,
+        <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <View style={[{ padding: 5 }, Platform.OS == 'android' ? styles.iconContainer : null]}>
+                {!_.isEmpty(cart) && <View style={{
+                    position: 'absolute', height: 30, width: 30, borderRadius: 15, backgroundColor: '#F06B36', right: 15, bottom: 15, alignItems: 'center', justifyContent: 'center', zIndex: 2000,
 
-            }}>
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>{cart.length}</Text>
-            </View>}
-            <Icon onPress={() => navigation.navigate('Cart')} name="ios-cart" size={30} color="white" />
-        </View>
+                }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>{cart.length}</Text>
+                </View>}
+                <Icon name="ios-cart" size={30} color="white" />
+            </View>
+        </TouchableOpacity>
     )
 }
 
