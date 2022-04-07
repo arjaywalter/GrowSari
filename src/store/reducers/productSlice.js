@@ -18,10 +18,10 @@ export const getProducts = createAsyncThunk(
 
 export const addToCart = createAsyncThunk(
   'products/addToCart',
-  async ({ id }, thunkAPI) => {
+  async ({ item }, thunkAPI) => {
     try {
       // TODO Replace with real fetch API call
-      return id;
+      return item;
     } catch (error) {
       const message = getErrorMessage(error);
       return thunkAPI.rejectWithValue(message);
@@ -78,9 +78,8 @@ export const productSlice = createSlice({
     },
 
     [addToCart.fulfilled]: (state, action) => {
-      const id = action.meta.arg.id;
-      const product = state.data.find(i => i.id === id);
-      state.cart.push(product);
+      const item = action.meta.arg.item;
+      state.cart.push(item);
     },
     [removeToCart.fulfilled]: (state, action) => {
       const id = action.meta.arg.id;

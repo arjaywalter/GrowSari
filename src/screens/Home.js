@@ -51,6 +51,10 @@ function Home({ navigation, route }) {
     },
   ];
 
+  const onPressAddToCart = item => {
+    dispatch(addToCart({item}));
+  }
+
   const keyExtractor = useCallback(item => item.id.toString(), []);
 
   const Item = ({ item }) => {
@@ -59,9 +63,7 @@ function Home({ navigation, route }) {
     return (<View style={styles.item}>
       <Text style={styles.title}>{display_name}</Text>
       <Text>PHP {price}</Text>
-      <Button title="Add to cart" onPress={() => {
-        dispatch(addToCart({id: item.id}));
-      }}/>
+      <Button title="Add to cart" onPress={onPressAddToCart}/>
     </View>
     )
   };
@@ -91,13 +93,15 @@ function Home({ navigation, route }) {
         stickySectionHeadersEnabled={false}
         sections={DATA}
         keyExtractor={(item, index) => item + index}
-        renderItem={({ item, section }) => {
-          return <FlatList
-            data={section.data}
-            renderItem={({ item }) => <Item item={item} />}
-            showsHorizontalScrollIndicator={false}
-          />
-        }}
+        renderItem={({ item }) => <Item item={item} />}
+        // renderItem={({ item, section }) => {
+        //   return <FlatList
+        //   horizontal
+        //     data={section.data}
+        //     renderItem={({ item }) => <Item item={item} />}
+        //     showsHorizontalScrollIndicator={false}
+        //   />
+        // }}
         renderSectionHeader={({ section }) => (
           <Text style={styles.header}>{section.title}</Text>
         )}
